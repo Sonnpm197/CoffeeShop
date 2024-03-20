@@ -37,7 +37,21 @@ Here is my design for the database, system, and sequence diagram
 
 ### Build an image
 
-`./gradlew bootBuildImage`
+* Prerequisite: 
+  * set JAVA_HOME to 21
+  * change application.properties postgres to your database (if not run with docker-compose)
+
+* Run with CoffeeShop image:
+
+`./gradlew bootBuildImage` (this will build an image immediately)
+
+* or
+
+`./gradlew build && docker build -t testdockercoffee .`
+
+* Run with docker compose
+
+`docker-compose up`
 
 ### Testing
 #### With Postman
