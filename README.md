@@ -35,23 +35,27 @@ Here is my design for the database, system, and sequence diagram
 * a.	Use java unit tests for those APIs
 * b.	Writing integration tests
 
-### Build an image
+### Deployment
 
-* Prerequisite: 
+* Run with docker compose with postgres DB included
+
+`docker-compose up`
+
+* Prerequisite for running gradlew and coffeeshop image individually: 
   * set JAVA_HOME to 21
   * change application.properties postgres to your database (if not run with docker-compose)
 
 * Run with CoffeeShop image:
 
-`./gradlew bootBuildImage` (this will build an image immediately)
+`./gradlew bootBuildImage` (this will build an image coffeeshop immediately)
 
-* or
+* Gradle build to rebuild executable jar file
 
-`./gradlew build && docker build -t testdockercoffee .`
+`./gradlew build`
 
-* Run with docker compose
+* Rebuild image
 
-`docker-compose up`
+`docker build -t testdockercoffee .`
 
 ### Testing
 #### With Postman
