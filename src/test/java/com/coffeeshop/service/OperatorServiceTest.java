@@ -4,9 +4,7 @@ import com.coffeeshop.CoffeeShopApplication;
 import com.coffeeshop.model.Order;
 import com.coffeeshop.model.enums.OrderState;
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,9 +33,21 @@ public class OperatorServiceTest {
     @Autowired
     private MockMvc mvc;
 
+    @BeforeAll
+    @Sql(scripts = {"/delete_all.sql", "/init.sql"})
+    public static void initBeforeAll() {
+
+    }
+
     @BeforeEach
-    @Sql(scripts = {"/clean_up.sql"})
+    @Sql(scripts = {"/truncate_all.sql"})
     public void cleanUp() {
+
+    }
+
+    @AfterAll
+    @Sql(scripts = {"/delete_all.sql"})
+    public static void cleanUpAfterAll() {
 
     }
 
