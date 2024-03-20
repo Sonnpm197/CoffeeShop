@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.coffeeshop.service.OperatorServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-03-20T12:34:43" hostname="SONNPM" time="0.759">
+  <properties/>
+  <testcase name="integrationTestUpdateOrderService()" classname="com.coffeeshop.service.OperatorServiceTest" time="0.737"/>
+  <testcase name="testUpdateOrderService()" classname="com.coffeeshop.service.OperatorServiceTest" time="0.02"/>
+  <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.3)
+
+2024-03-20T23:34:39.854+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] c.c.service.OperatorServiceTest          : Starting OperatorServiceTest using Java 21.0.2 with PID 11252 (started by bigda in C:\Users\bigda\IdeaProjects\CoffeeShop)
+2024-03-20T23:34:39.854+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] c.c.service.OperatorServiceTest          : No active profile set, falling back to 1 default profile: "default"
+2024-03-20T23:34:40.414+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-20T23:34:40.477+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 5 JPA repository interfaces.
+2024-03-20T23:34:40.939+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-20T23:34:41.001+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-20T23:34:41.033+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-03-20T23:34:41.252+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-20T23:34:41.279+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-03-20T23:34:41.442+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:test user=SA
+2024-03-20T23:34:41.442+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-03-20T23:34:41.474+11:00  WARN 11252 --- [CoffeeShop] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-03-20T23:34:42.328+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    create table coffeeshop (
+        id integer not null,
+        created_by varchar(255),
+        created_date TIMESTAMP,
+        deleted boolean,
+        last_modified_by varchar(255),
+        last_modified_date TIMESTAMP,
+        address varchar(255),
+        description varchar(255),
+        latitude varchar(255),
+        longitude varchar(255),
+        name varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table menuitem (
+        id integer not null,
+        created_by varchar(255),
+        created_date TIMESTAMP,
+        deleted boolean,
+        last_modified_by varchar(255),
+        last_modified_date TIMESTAMP,
+        price varchar(255),
+        size varchar(255),
+        coffee_shop_id integer not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table orderqueue (
+        id integer not null,
+        created_by varchar(255),
+        created_date TIMESTAMP,
+        deleted boolean,
+        last_modified_by varchar(255),
+        last_modified_date TIMESTAMP,
+        capacity integer,
+        name varchar(255),
+        priority integer,
+        coffee_shop_id integer not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table orders (
+        id integer not null,
+        created_by varchar(255),
+        created_date TIMESTAMP,
+        deleted boolean,
+        last_modified_by varchar(255),
+        last_modified_date TIMESTAMP,
+        order_state varchar(255),
+        order_time timestamp(6),
+        quantity integer,
+        menu_item_id integer not null,
+        order_queue_id integer not null,
+        user_id integer not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table users (
+        id integer not null,
+        created_by varchar(255),
+        created_date TIMESTAMP,
+        deleted boolean,
+        last_modified_by varchar(255),
+        last_modified_date TIMESTAMP,
+        address varchar(255),
+        mobile_number varchar(255),
+        name varchar(255),
+        success_orders integer,
+        user_role varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists menuitem 
+       add constraint FKkf9s6lq30us1oanqcd9gpqe74 
+       foreign key (coffee_shop_id) 
+       references coffeeshop
+Hibernate: 
+    alter table if exists orderqueue 
+       add constraint FK2f6yffn04s2xwafty16mg4aeb 
+       foreign key (coffee_shop_id) 
+       references coffeeshop
+Hibernate: 
+    alter table if exists orders 
+       add constraint FKk6wd4t2jbl1e8a605ifmitb66 
+       foreign key (menu_item_id) 
+       references menuitem
+Hibernate: 
+    alter table if exists orders 
+       add constraint FKsbg8j9161xemaxv92bq4d3mnv 
+       foreign key (order_queue_id) 
+       references orderqueue
+Hibernate: 
+    alter table if exists orders 
+       add constraint FK32ql8ubntj5uh44ph9659tiih 
+       foreign key (user_id) 
+       references users
+2024-03-20T23:34:42.377+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-20T23:34:43.182+11:00  WARN 11252 --- [CoffeeShop] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-03-20T23:34:43.613+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:test'
+2024-03-20T23:34:43.688+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-03-20T23:34:43.688+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2024-03-20T23:34:43.701+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 12 ms
+2024-03-20T23:34:43.735+11:00  INFO 11252 --- [CoffeeShop] [    Test worker] c.c.service.OperatorServiceTest          : Started OperatorServiceTest in 4.086 seconds (process running for 5.057)
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.created_by,
+        o1_0.created_date,
+        o1_0.deleted,
+        o1_0.last_modified_by,
+        o1_0.last_modified_date,
+        o1_0.menu_item_id,
+        o1_0.order_queue_id,
+        o1_0.order_state,
+        o1_0.order_time,
+        o1_0.quantity,
+        o1_0.user_id 
+    from
+        orders o1_0 
+    where
+        o1_0.id=? 
+        and not(o1_0.deleted)
+Hibernate: 
+    select
+        mi1_0.id,
+        mi1_0.coffee_shop_id,
+        cs1_0.id,
+        cs1_0.address,
+        cs1_0.created_by,
+        cs1_0.created_date,
+        cs1_0.deleted,
+        cs1_0.description,
+        cs1_0.last_modified_by,
+        cs1_0.last_modified_date,
+        cs1_0.latitude,
+        cs1_0.longitude,
+        cs1_0.name,
+        mi1_0.created_by,
+        mi1_0.created_date,
+        mi1_0.deleted,
+        mi1_0.last_modified_by,
+        mi1_0.last_modified_date,
+        mi1_0.price,
+        mi1_0.size 
+    from
+        menuitem mi1_0 
+    join
+        coffeeshop cs1_0 
+            on cs1_0.id=mi1_0.coffee_shop_id 
+    where
+        mi1_0.id=?
+Hibernate: 
+    select
+        oq1_0.id,
+        oq1_0.capacity,
+        oq1_0.coffee_shop_id,
+        cs1_0.id,
+        cs1_0.address,
+        cs1_0.created_by,
+        cs1_0.created_date,
+        cs1_0.deleted,
+        cs1_0.description,
+        cs1_0.last_modified_by,
+        cs1_0.last_modified_date,
+        cs1_0.latitude,
+        cs1_0.longitude,
+        cs1_0.name,
+        oq1_0.created_by,
+        oq1_0.created_date,
+        oq1_0.deleted,
+        oq1_0.last_modified_by,
+        oq1_0.last_modified_date,
+        oq1_0.name,
+        oq1_0.priority 
+    from
+        orderqueue oq1_0 
+    join
+        coffeeshop cs1_0 
+            on cs1_0.id=oq1_0.coffee_shop_id 
+    where
+        oq1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.address,
+        u1_0.created_by,
+        u1_0.created_date,
+        u1_0.deleted,
+        u1_0.last_modified_by,
+        u1_0.last_modified_date,
+        u1_0.mobile_number,
+        u1_0.name,
+        u1_0.success_orders,
+        u1_0.user_role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+
+MockHttpServletRequest:
+      HTTP Method = PATCH
+      Request URI = /api/v1/coffeeshop/operator/update-order
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"48"]
+             Body = {
+    "orderState": "PROCESSING",
+    "id" : 1
+}
+    Session Attrs = {}
+
+Handler:
+             Type = com.coffeeshop.controller.OperatorController
+           Method = com.coffeeshop.controller.OperatorController#updateOrder(Order)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"quantity":1,"orderTime":"2024-03-20T23:34:43.813995","orderState":"PROCESSING"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.created_by,
+        o1_0.created_date,
+        o1_0.deleted,
+        o1_0.last_modified_by,
+        o1_0.last_modified_date,
+        o1_0.menu_item_id,
+        o1_0.order_queue_id,
+        o1_0.order_state,
+        o1_0.order_time,
+        o1_0.quantity,
+        o1_0.user_id 
+    from
+        orders o1_0 
+    where
+        o1_0.id=? 
+        and not(o1_0.deleted)
+Hibernate: 
+    select
+        mi1_0.id,
+        mi1_0.coffee_shop_id,
+        cs1_0.id,
+        cs1_0.address,
+        cs1_0.created_by,
+        cs1_0.created_date,
+        cs1_0.deleted,
+        cs1_0.description,
+        cs1_0.last_modified_by,
+        cs1_0.last_modified_date,
+        cs1_0.latitude,
+        cs1_0.longitude,
+        cs1_0.name,
+        mi1_0.created_by,
+        mi1_0.created_date,
+        mi1_0.deleted,
+        mi1_0.last_modified_by,
+        mi1_0.last_modified_date,
+        mi1_0.price,
+        mi1_0.size 
+    from
+        menuitem mi1_0 
+    join
+        coffeeshop cs1_0 
+            on cs1_0.id=mi1_0.coffee_shop_id 
+    where
+        mi1_0.id=?
+Hibernate: 
+    select
+        oq1_0.id,
+        oq1_0.capacity,
+        oq1_0.coffee_shop_id,
+        cs1_0.id,
+        cs1_0.address,
+        cs1_0.created_by,
+        cs1_0.created_date,
+        cs1_0.deleted,
+        cs1_0.description,
+        cs1_0.last_modified_by,
+        cs1_0.last_modified_date,
+        cs1_0.latitude,
+        cs1_0.longitude,
+        cs1_0.name,
+        oq1_0.created_by,
+        oq1_0.created_date,
+        oq1_0.deleted,
+        oq1_0.last_modified_by,
+        oq1_0.last_modified_date,
+        oq1_0.name,
+        oq1_0.priority 
+    from
+        orderqueue oq1_0 
+    join
+        coffeeshop cs1_0 
+            on cs1_0.id=oq1_0.coffee_shop_id 
+    where
+        oq1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.address,
+        u1_0.created_by,
+        u1_0.created_date,
+        u1_0.deleted,
+        u1_0.last_modified_by,
+        u1_0.last_modified_date,
+        u1_0.mobile_number,
+        u1_0.name,
+        u1_0.success_orders,
+        u1_0.user_role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+]]></system-out>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (C:\Users\bigda\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.14.12\be4984cb6fd1ef1d11f218a648889dfda44b8a15\byte-buddy-agent-1.14.12.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>
